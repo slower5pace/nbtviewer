@@ -11,10 +11,6 @@
 
 #define UNUSED(x) (void)(x)
 
-// Called even when file is not gzipped, does not matter
-
-// Forward declarations for parsing functions
-
 NBT_Tag *parse(uint8_t buffer[], long size) {
   long pos = 0;
   int depth = 0;
@@ -99,7 +95,7 @@ int main(int argc, char *argv[]) {
 
   long file_size = decompress_gzip(argv[1], &decompressed_data);
 
-  NBT_Tag *root_compound = parse(decompressed_data, file_size);
+  parse(decompressed_data, file_size);
   // if (argv[2] != NULL) {
   //   NBT_Tag *search_result = find_tag(root_compound, argv[2]);
   //   if (search_result == NULL) {
