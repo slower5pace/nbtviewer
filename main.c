@@ -21,35 +21,8 @@ static int print_tags = 1;
 // Called even when file is not gzipped, does not matter
 
 // Forward declarations for parsing functions
-static void parse_compound_tag(uint8_t buffer[], long *pos, int *depth,
-                               NBT_Tag **current_compound,
-                               NBT_Tag **root_compound);
-static void parse_int_tag(uint8_t buffer[], long *pos, int depth,
-                          NBT_Tag *current_compound);
-static void parse_byte_tag(uint8_t buffer[], long *pos, int depth,
-                           NBT_Tag *current_compound);
-static void parse_float_tag(uint8_t buffer[], long *pos, int depth,
-                            NBT_Tag *current_compound);
-static void parse_double_tag(uint8_t buffer[], long *pos, int depth,
-                             NBT_Tag *current_compound);
-static void parse_short_tag(uint8_t buffer[], long *pos, int depth,
-                            NBT_Tag *current_compound);
-static void parse_long_tag(uint8_t buffer[], long *pos, int depth,
-                           NBT_Tag *current_compound);
-static void parse_string_tag(uint8_t buffer[], long *pos, int depth,
-                             NBT_Tag *current_compound);
-static void parse_list_tag(uint8_t buffer[], long *pos, int depth,
-                           NBT_Tag *current_compound);
-static void parse_byte_array_tag(uint8_t buffer[], long *pos, int depth,
-                                 NBT_Tag *current_compound);
-static void parse_int_array_tag(uint8_t buffer[], long *pos, int depth,
-                                NBT_Tag *current_compound);
-static void parse_long_array_tag(uint8_t buffer[], long *pos, int depth,
-                                 NBT_Tag *current_compound);
-
-static void parse_compound_tag(uint8_t buffer[], long *pos, int *depth,
-                               NBT_Tag **current_compound,
-                               NBT_Tag **root_compound) {
+void parse_compound_tag(uint8_t buffer[], long *pos, int *depth,
+                        NBT_Tag **current_compound, NBT_Tag **root_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -69,8 +42,8 @@ static void parse_compound_tag(uint8_t buffer[], long *pos, int *depth,
   (*depth)++;
 }
 
-static void parse_int_tag(uint8_t buffer[], long *pos, int depth,
-                          NBT_Tag *current_compound) {
+void parse_int_tag(uint8_t buffer[], long *pos, int depth,
+                   NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -80,8 +53,8 @@ static void parse_int_tag(uint8_t buffer[], long *pos, int depth,
   add_tag_to_compound(current_compound, tag);
 }
 
-static void parse_byte_tag(uint8_t buffer[], long *pos, int depth,
-                           NBT_Tag *current_compound) {
+void parse_byte_tag(uint8_t buffer[], long *pos, int depth,
+                    NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -91,8 +64,8 @@ static void parse_byte_tag(uint8_t buffer[], long *pos, int depth,
   add_tag_to_compound(current_compound, tag);
 }
 
-static void parse_float_tag(uint8_t buffer[], long *pos, int depth,
-                            NBT_Tag *current_compound) {
+void parse_float_tag(uint8_t buffer[], long *pos, int depth,
+                     NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -102,8 +75,8 @@ static void parse_float_tag(uint8_t buffer[], long *pos, int depth,
   add_tag_to_compound(current_compound, tag);
 }
 
-static void parse_double_tag(uint8_t buffer[], long *pos, int depth,
-                             NBT_Tag *current_compound) {
+void parse_double_tag(uint8_t buffer[], long *pos, int depth,
+                      NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -113,8 +86,8 @@ static void parse_double_tag(uint8_t buffer[], long *pos, int depth,
   add_tag_to_compound(current_compound, tag);
 }
 
-static void parse_short_tag(uint8_t buffer[], long *pos, int depth,
-                            NBT_Tag *current_compound) {
+void parse_short_tag(uint8_t buffer[], long *pos, int depth,
+                     NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -124,8 +97,8 @@ static void parse_short_tag(uint8_t buffer[], long *pos, int depth,
   add_tag_to_compound(current_compound, tag);
 }
 
-static void parse_long_tag(uint8_t buffer[], long *pos, int depth,
-                           NBT_Tag *current_compound) {
+void parse_long_tag(uint8_t buffer[], long *pos, int depth,
+                    NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -135,8 +108,8 @@ static void parse_long_tag(uint8_t buffer[], long *pos, int depth,
   add_tag_to_compound(current_compound, tag);
 }
 
-static void parse_string_tag(uint8_t buffer[], long *pos, int depth,
-                             NBT_Tag *current_compound) {
+void parse_string_tag(uint8_t buffer[], long *pos, int depth,
+                      NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -149,8 +122,8 @@ static void parse_string_tag(uint8_t buffer[], long *pos, int depth,
   free(string_content);
 }
 
-static void parse_list_tag(uint8_t buffer[], long *pos, int depth,
-                           NBT_Tag *current_compound) {
+void parse_list_tag(uint8_t buffer[], long *pos, int depth,
+                    NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -373,8 +346,8 @@ static void parse_list_tag(uint8_t buffer[], long *pos, int depth,
   add_tag_to_compound(current_compound, list_tag);
 }
 
-static void parse_byte_array_tag(uint8_t buffer[], long *pos, int depth,
-                                 NBT_Tag *current_compound) {
+void parse_byte_array_tag(uint8_t buffer[], long *pos, int depth,
+                          NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -391,8 +364,8 @@ static void parse_byte_array_tag(uint8_t buffer[], long *pos, int depth,
   free(data);
 }
 
-static void parse_int_array_tag(uint8_t buffer[], long *pos, int depth,
-                                NBT_Tag *current_compound) {
+void parse_int_array_tag(uint8_t buffer[], long *pos, int depth,
+                         NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);
@@ -409,8 +382,8 @@ static void parse_int_array_tag(uint8_t buffer[], long *pos, int depth,
   free(data);
 }
 
-static void parse_long_array_tag(uint8_t buffer[], long *pos, int depth,
-                                 NBT_Tag *current_compound) {
+void parse_long_array_tag(uint8_t buffer[], long *pos, int depth,
+                          NBT_Tag *current_compound) {
   (*pos)++;
   uint16_t name_len = get_len_short(buffer, pos);
   char *name = get_text_short(buffer, pos, name_len);

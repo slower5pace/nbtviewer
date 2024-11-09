@@ -68,6 +68,31 @@ typedef struct NBT_Tag {
   union NBT_Value value;
 } NBT_Tag;
 
+void parse_compound_tag(uint8_t buffer[], long *pos, int *depth,
+                        NBT_Tag **current_compound, NBT_Tag **root_compound);
+void parse_int_tag(uint8_t buffer[], long *pos, int depth,
+                   NBT_Tag *current_compound);
+void parse_byte_tag(uint8_t buffer[], long *pos, int depth,
+                    NBT_Tag *current_compound);
+void parse_float_tag(uint8_t buffer[], long *pos, int depth,
+                     NBT_Tag *current_compound);
+void parse_double_tag(uint8_t buffer[], long *pos, int depth,
+                      NBT_Tag *current_compound);
+void parse_short_tag(uint8_t buffer[], long *pos, int depth,
+                     NBT_Tag *current_compound);
+void parse_long_tag(uint8_t buffer[], long *pos, int depth,
+                    NBT_Tag *current_compound);
+void parse_string_tag(uint8_t buffer[], long *pos, int depth,
+                      NBT_Tag *current_compound);
+void parse_list_tag(uint8_t buffer[], long *pos, int depth,
+                    NBT_Tag *current_compound);
+void parse_byte_array_tag(uint8_t buffer[], long *pos, int depth,
+                          NBT_Tag *current_compound);
+void parse_int_array_tag(uint8_t buffer[], long *pos, int depth,
+                         NBT_Tag *current_compound);
+void parse_long_array_tag(uint8_t buffer[], long *pos, int depth,
+                          NBT_Tag *current_compound);
+
 // Tag creation functions
 NBT_Tag *create_compound(NBT_Tag *previous, char *name, uint16_t name_len);
 NBT_Tag *create_byte_tag(char *name, uint16_t name_len, int8_t value);
