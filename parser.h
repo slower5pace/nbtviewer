@@ -68,6 +68,7 @@ typedef struct NBT_Tag {
   union NBT_Value value;
 } NBT_Tag;
 
+void parse_end_tag(NBT_Tag *current_compound, int *depth, long *pos);
 void parse_compound_tag(uint8_t buffer[], long *pos, int *depth,
                         NBT_Tag **current_compound, NBT_Tag **root_compound);
 void parse_int_tag(uint8_t buffer[], long *pos, int depth,

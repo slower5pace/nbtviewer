@@ -333,6 +333,15 @@ inline double get_double(uint8_t *buf, long *pos) {
   return result;
 }
 
+void parse_end_tag(NBT_Tag *current_compound, int *depth, long *pos) {
+  PRINT_TAG("%*s[END]\n", (*depth - 1) * 2, "");
+  if (current_compound && current_compound->value.compound_value.previous) {
+    current_compound = current_compound->value.compound_value.previous;
+    (*depth)--;
+  }
+  (*pos)++;
+}
+
 void parse_compound_tag(uint8_t buffer[], long *pos, int *depth,
                         NBT_Tag **current_compound, NBT_Tag **root_compound) {
   (*pos)++;

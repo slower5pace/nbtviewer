@@ -1,7 +1,6 @@
 #include "file.h"
 #include "operations.h"
 #include "parser.h"
-#include "utils.h"
 #include "zlib.h"
 #include <math.h>
 #include <stdint.h>
@@ -11,8 +10,6 @@
 #include <sys/_types/_null.h>
 
 #define UNUSED(x) (void)(x)
-
-static int print_tags = 1;
 
 // Called even when file is not gzipped, does not matter
 
@@ -29,12 +26,7 @@ NBT_Tag *parse(uint8_t buffer[], long size) {
 
     switch (current) {
     case END:
-      PRINT_TAG("%*s[END]\n", (depth - 1) * 2, "");
-      if (current_compound && current_compound->value.compound_value.previous) {
-        current_compound = current_compound->value.compound_value.previous;
-        depth--;
-      }
-      pos++;
+      parse_end_tag(current_compound, &depth, &pos);
       break;
 
     case COMPOUND:
