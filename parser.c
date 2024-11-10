@@ -11,22 +11,14 @@ int print_tags = 1;
   }
 
 inline uint16_t get_len_short(uint8_t *buf, long *pos) {
-  // little endian to big endian
   uint16_t val = (buf[*pos] << 8) | buf[*pos + 1];
-  // if (val == 0) {
-  //   printf("Tag name length is 0 at position %ld", *pos);
-  //   exit(EXIT_FAILURE);
-  // }
   *pos += 2;
   return val;
 }
 
 // for getting tag name/text content
 inline char *get_text_short(uint8_t *buf, long *pos, uint16_t len) {
-  //  if (len == 0) {
-  //    return NULL;
-  //  }
-  //
+
   char *name = malloc(len + 1);
   if (name == NULL) {
     return NULL;
@@ -103,6 +95,7 @@ inline NBT_Tag *init_tag(enum TagType type, char *name, uint16_t name_len) {
   return tag;
 }
 
+// not really needed, so i didnt even check whether this is correct
 void free_tag(NBT_Tag *tag) {
   if (tag == NULL) {
     return;
